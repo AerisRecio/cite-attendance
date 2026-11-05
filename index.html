@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CITE Event Attendance</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div class="ambient" aria-hidden="true"></div>
+  <main class="page">
+    <header>
+      <div class="brand" id="brandTitle">CITE ASCEND</div>
+      <div class="subtitle">Event Attendance</div>
+    </header>
+    <section class="layout">
+      <section class="panel tap-panel" aria-label="Student check-in">
+        <svg class="nfc-mark" viewBox="0 0 160 160" aria-hidden="true">
+          <path d="M80 10 145 57 145 93 80 48 15 93 15 57Z" fill="#a84d4d" opacity=".86"/>
+          <path d="M80 10 80 48 15 93 15 57Z" fill="#6e3434"/>
+          <path d="M80 10 145 57 145 93 80 48Z" fill="#b85b5b"/>
+          <path d="M80 67 145 114 145 150 80 105 15 150 15 114Z" fill="#9b4445" opacity=".9"/>
+          <path d="M80 67 80 105 15 150 15 114Z" fill="#713536"/>
+          <path d="M80 67 145 114 145 150 80 105Z" fill="#a84b4c"/>
+          <path d="M15 57 80 10 145 57" fill="none" stroke="#d17a79" stroke-width="2" opacity=".55"/>
+        </svg>
+        <div class="tap-title">Tap your ID</div>
+        <div class="helper">Tap your ID or manually type your student number</div>
+        <form class="manual-form" id="manualForm">
+          <input id="manualId" type="text" placeholder="Enter Student Number" autocomplete="off" aria-label="Enter student number">
+          <button class="primary-btn" type="submit">ENTER</button>
+        </form>
+        <div class="reader-actions">
+          <button class="small-btn" id="connectReader">Connect USB reader</button>
+          <button class="small-btn" id="keyboardMode">Keyboard mode</button>
+        </div>
+        <div class="reader-status" id="readerStatus">Reader not connected · Ready for manual entry</div>
+      </section>
+      <section class="panel list-panel" aria-label="Attendance records">
+        <div class="list-header">
+          <div class="list-heading">Attendance List (<span id="count">0</span>)</div>
+          <div class="toolbar">
+            <button class="new-event" id="newEvent">New Event ＋</button>
+            <button class="import-btn" id="importRoster">Import CSV ↓</button>
+            <button class="export-btn" id="exportCsv">Export CSV ↑</button>
+            <input id="csvFile" type="file" accept=".csv,text/csv" class="hidden">
+          </div>
+        </div>
+        <div class="list-tools">
+          <input class="search" id="search" type="search" placeholder="Search name, student number, or section…">
+          <span class="event-chip" id="eventName">Current event: CITE ASCEND</span>
+        </div>
+        <div class="attendance-list" id="attendanceList">
+          <div class="empty" id="emptyState"><div>No students have tapped in yet<span>Connect your reader or enter a student number to begin.</span></div></div>
+        </div>
+        <div class="stats"><span>Registered students: <strong id="rosterCount">0</strong></span><span>·</span><span>Present: <strong id="presentCount">0</strong></span><span>·</span><span>Storage: <strong>this browser</strong></span></div>
+      </section>
+    </section>
+  </main>
+</div>
+<div class="modal-backdrop" id="eventModal" role="dialog" aria-modal="true" aria-labelledby="eventModalTitle">
+  <div class="modal">
+    <h2 id="eventModalTitle">Create a new event</h2>
+    <p>Attendance is recorded separately for each event. Previous event records remain saved in this browser.</p>
+    <div class="field"><label for="eventInput">Event name</label><input id="eventInput" placeholder="e.g. CITE Week 2027"></div>
+    <div class="modal-actions"><button class="secondary-btn" id="cancelEvent">Cancel</button><button class="primary-btn" id="saveEvent" style="margin:0;width:auto">Create event</button></div>
+  </div>
+</div>
+<div class="modal-backdrop" id="studentModal" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle">
+  <div class="modal">
+    <h2 id="studentModalTitle">Register a student card</h2>
+    <p>This card UID is not the student's name. Save the UID beside the student's details so the system can recognize it on the next tap.</p>
+    <div class="field"><label for="uidInput">Card UID</label><input id="uidInput" placeholder="UID from reader"></div>
+    <div class="field"><label for="studentNumberInput">Student number</label><input id="studentNumberInput" placeholder="Student number"></div>
+    <div class="field"><label for="nameInput">Full name</label><input id="nameInput" placeholder="Student full name"></div>
+    <div class="field"><label for="sectionInput">Section</label><input id="sectionInput" placeholder="e.g. IT2D"></div>
+    <div class="modal-actions"><button class="secondary-btn" id="cancelStudent">Cancel</button><button class="primary-btn" id="saveStudent" style="margin:0;width:auto">Save student</button></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script src="script.js"></script>
+</body>
+</html>
